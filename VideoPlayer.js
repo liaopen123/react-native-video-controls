@@ -7,6 +7,7 @@ import {
     PanResponder,
     StyleSheet,
     Touchable,
+    Dimensions,
     Animated,
     Platform,
     Easing,
@@ -14,8 +15,9 @@ import {
     View,
     Text
 } from 'react-native';
+import Orientation from 'react-native-orientation';
 import _ from 'lodash';
-
+const { height, width } = Dimensions.get('window');
 export default class VideoPlayer extends Component {
 
     static defaultProps = {
@@ -64,6 +66,10 @@ export default class VideoPlayer extends Component {
             currentTime: 0,
             error: false,
             duration: 0,
+
+            //视频类型
+            isPortrait: this.props.isPortrait,
+            isFullScreen:  this.props.isFullScreen,  //是否切换到横屏
         };
 
         /**
@@ -1106,12 +1112,12 @@ export default class VideoPlayer extends Component {
                 onPress={ this.events.onScreenTouch }
                 style={[ styles.player.container, this.styles.containerStyle ]}
             >
-                <View style={[ styles.player.container, this.styles.containerStyle ]}>
+                <View style={[styles.videoContainer, {justifyContent: this.state.isFullScreen ? 'flex-start' : 'center'}]}>
                     <Video
                         { ...this.props }
                         ref={ videoPlayer => this.player.ref = videoPlayer }
 
-                        resizeMode={ this.state.resizeMode }
+                        resizeMode={this.state.isPortrait || this.state.isFullScreen ? "stretch" : "stretch"}
                         volume={ this.state.volume }
                         paused={ this.state.paused }
                         muted={ this.state.muted }
@@ -1338,6 +1344,12 @@ const styles = {
             top: 8, left: 8,
             height: 12,
             width: 12,
+        },
+
+        //videoContainer  大小为全屏 通过 justifyContent: 'center',使video居中显示
+        videoContainer: {
+            width: width,
+            height: height,
         },
     })
 };
