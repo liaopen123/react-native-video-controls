@@ -2,6 +2,16 @@
 Controls for the React Native `<Video>` component at [react-native-video](https://github.com/react-native-community/react-native-video). For support with RN 0.45 or lower use version 1.3.1 or lower.
 
 ## Features
+新增 横竖屏的展示 可以旋转播放了  可喜可贺
+使用方法:
+```javascript
+   <VideoPlayerController
+        source={videoUrl }
+        navigator={ navigation }
+        onBack={() => navigation.goBack()}
+        isPortrait = {isPortrait1}   //是否是竖屏视频 如果是 就没有缩放 直接展示
+      />
+```
 This package contains a simple set of GUI controls that work with the [react-native-video](https://github.com/react-native-community/react-native-video) `<Video>` component. This includes a back button, volume bar, fullscreen toggle, play/pause toggle, seekbar, title, error handling and timer toggle that can switch between time remaining and current time when tapped.
 
 ![How it looks](https://s3-us-west-2.amazonaws.com/nubix.ca/github/example.gif)
